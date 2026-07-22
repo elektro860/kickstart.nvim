@@ -1,0 +1,11 @@
+return {
+  'mfussenegger/nvim-jdtls',
+  config = function()
+    vim.keymap.set('n', '<leader>0', function()
+      require('jdtls').organize_imports()
+    end, { desc = 'Organize imports' })
+  end,
+  dependencies = {
+    'mfussenegger/nvim-dap',
+  },
+}

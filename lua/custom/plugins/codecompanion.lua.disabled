@@ -1,0 +1,56 @@
+return {
+  'olimorris/codecompanion.nvim',
+  dependencies = {
+    'nvim-lua/plenary.nvim',
+    'nvim-treesitter/nvim-treesitter',
+  },
+  config = function()
+    require('codecompanion').setup {
+      strategies = {
+        chat = {
+          adapter = 'ollama',
+        },
+        -- Added this so you can use inline refactoring
+        inline = {
+          adapter = 'ollama',
+        },
+      },
+      adapters = {
+        ollama = function()
+          return require('codecompanion.adapters').extend('ollama', {
+            schema = {
+              model = {
+                default = 'deepseek-r1:32b',
+              },
+              num_ctx = {
+                default = 16384,
+              },
+            },
+            -- Crucial: Thinking models take longer to respond
+            opts = {
+              stream = true,
+            },
+          })
+        end,
+      },
+      opts = {
+        log_level = 'DEBUG',
+      },
+    }
+
+    --NOTE: Keymaps
+    local map = vim.keymap.set
+
+    -- Open the Chat Sidebar (Toggle)
+    map({ 'n', 'v' }, '<leader>oo', '<cmd>CodeCompanionChat Toggle<cr>', { desc = 'AI Chat' })
+
+    -- Inline Prompt (Ask the AI to edit highlighted code)
+    map({ 'n', 'v' }, '<leader>oi', '<cmd>CodeCompanion<cr>', { desc = 'AI Inline' })
+
+    -- Open the Actions Menu (The "Hub")
+    map({ 'n', 'v' }, '<leader>og', '<cmd>CodeCompanionActions<cr>', { desc = 'AI Actions' })
+
+    -- Quickly add selected code to the chat without switching focus
+    map('v', '<leader>oa', '<cmd>CodeCompanionChat Add<cr>', { desc = 'Add to AI Buffer' })
+  end,
+}
