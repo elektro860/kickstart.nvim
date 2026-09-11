@@ -9,19 +9,20 @@ local opts = {
   picker = {
     enabled = true,
     hidden = true,
-    ignored = true,
+    ignored = false,
+    exclude = { '.gradle' },
     sources = {
       files = {
         hidden = true,
-        ignored = true,
+        ignored = false,
       },
       grep = {
         hidden = true,
-        ignored = true,
+        ignored = false,
       },
       explorer = {
         hidden = true,
-        ignored = true,
+        ignored = false,
       },
     },
     win = {
