@@ -40,6 +40,10 @@ do
 
   -- Enable break indent
   vim.o.breakindent = true
+  vim.opt.expandtab = true
+  vim.opt.tabstop = 4
+  vim.opt.shiftwidth = 4
+  vim.opt.softtabstop = 4
 
   -- Enable undo/redo changes even after closing and reopening a file
   vim.o.undofile = true
@@ -645,6 +649,10 @@ do
     },
     jsonls = {},
     stylua = {}, -- Used to format Lua code
+    omnisharp = {
+      enable_roslyn_analyzers = true,
+      organize_imports_on_format = true,
+    },
 
     -- Special Lua Config, as recommended by neovim help docs
     lua_ls = {
